@@ -1,1 +1,1 @@
-Listen to a message from the authors
+CityVoice is about having a conversation. Click on an audio link to hear what your neighbors have to say.

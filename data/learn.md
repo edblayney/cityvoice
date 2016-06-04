@@ -1,2 +1,1 @@
-Learn more about CityVoice
-Now with Continuous Integration!
+To learn more about getting involved in Louisville's CityVoice initiative, click here!
