@@ -4,7 +4,7 @@ account_sid = "AC24bd9521e73195d4c0cb1071302048c3"
 auth_token = "68537864cf242067bf8fdf52f2fe9978"
 client = Twilio::REST::Client.new account_sid, auth_token
  
-from = "+18448005227" # Your Twilio number
+from = "+15005550006" # Your Twilio number
  
 friends = {
 "+14153334444" => "Curious George",
