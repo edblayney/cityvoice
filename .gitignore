@@ -26,3 +26,4 @@ git-merge-steps.txt
 /notes
 /config/database.yml
 /.idea
+/app/models/send-sms.rb
