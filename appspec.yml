@@ -1,0 +1,13 @@
+version: 0.0
+os: linux
+files:
+   - source: /
+     destination: /var/www/cityvoice/code
+permissions:
+hooks:
+   AfterInstall: 
+    - location: script/deployupdate.sh
+      runas: cityvoice
+   ApplicationStart:
+    - location: script/nginxrestart.sh
+      runas: ubuntu
