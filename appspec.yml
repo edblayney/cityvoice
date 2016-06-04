@@ -4,6 +4,16 @@ files:
    - source: /
      destination: /var/www/cityvoice/code
 permissions:
+   - object: /var/www/cityvoice
+     owner: cityvoice
+     group: cityvoice
+     type:
+       - file
+   - object: /var/www/cityvoice
+     owner: cityvoice
+     group: cityvoice
+     type:
+       - directory
 hooks:
    AfterInstall: 
     - location: script/deployupdate.sh
