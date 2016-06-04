@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 ruby '2.1.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# 
+# Moved annotate gem out of dev/test section temporarily
 gem 'pg'
 gem 'rails', '4.0.0'
 gem 'unicorn'
@@ -25,6 +27,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'google-analytics-rails'
 gem 'soda-ruby', require: 'soda'
 gem 'twilio-ruby'
+gem 'annotate'
 
 group :test do
   gem 'shoulda-matchers'
@@ -34,7 +37,6 @@ group :test do
 end
 
 group :development, :test do
-  gem 'annotate'
   gem 'capybara'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
