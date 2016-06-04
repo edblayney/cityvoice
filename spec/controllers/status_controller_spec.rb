@@ -4,7 +4,7 @@ describe StatusController do
   let(:response_hash) { JSON.parse response.body }
 
   before do
-    stub_request(:post, "http://www.southbendvoices.com/route_to_survey").
+    stub_request(:post, "http://cityvoice.smartlouisville.com/route_to_survey").
          to_return(:status => 201, :body => "here's welcome.mp3")
     create(:location)
     make_request
