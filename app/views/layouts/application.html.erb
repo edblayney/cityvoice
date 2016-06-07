@@ -6,6 +6,8 @@
 
     <title><%= content_for?(:title) ? yield(:title) : @content.short_title.upcase %></title>
 
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    
     <%= stylesheet_link_tag 'application' %>
     <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css">
     <link href="http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css" rel="stylesheet" type="text/css">
