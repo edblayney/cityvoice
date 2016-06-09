@@ -6,6 +6,13 @@
     <% end %>
 
     <%-# render partial: 'email_notifications', locals: {location: @location} -%>
+    
+    <%= render layout: 'landing/info_block', locals: {title: 'Voice Messages', html_class: 'answer'} do %>
+      <% @location.answers.voice_messages.each do |voice_message| %>
+        <%= render partial: 'locations/voice_message', locals: {answer: voice_message} %>
+      <% end %>
+    <% end %>
+    
   </div>
 
   <div class="small-12 medium-5  columns">
@@ -18,11 +25,7 @@
       <%= render partial: 'numerical_response', locals: {numerical_response: numerical_response} %>
     <% end %>
 
-    <%= render layout: 'landing/info_block', locals: {title: 'Voice Messages', html_class: 'answer'} do %>
-      <% @location.answers.voice_messages.each do |voice_message| %>
-        <%= render partial: 'locations/voice_message', locals: {answer: voice_message} %>
-      <% end %>
-    <% end %>
+    
   </div>
 </div>
 
