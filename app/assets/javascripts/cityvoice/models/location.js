@@ -5,6 +5,6 @@ Cityvoice.Models.Location = Backbone.Model.extend({
   },
   toContent: function(){
     var properties = this.get("properties");
-    return ['<a href="', properties.url, '">', properties.name, '</a>'].join("");
+    return ['<a href="', properties.url, '">', properties.name, ' - ', properties.id, '</a>'].join("");
   }
 });
