@@ -6,4 +6,5 @@ end
 json.properties do
   json.name location.name
   json.url location_url(location)
+  json.id location.id
 end
