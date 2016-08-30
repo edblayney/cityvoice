@@ -1,4 +1,10 @@
 Short Name,Feedback Type,Question Text
-bus_shelter_setback,numerical_response,Should this bus shelter be pushed back from the sidewalk? Press 1 to push back or 2 to leave in place.
-access_management,numerical_response,Should this driveway be removed? Press 1 to remove or 2 to leave in place.
-sidewalk_comments,voice_file,Do you have anything else to say about this sidewalk?
+Q1,numerical_response,Rate how safe do you feel walking along Dixie Highway? Press 1 for safe or 2 for unsafe.
+Q2,voice_file,What would you change to make Dixie Highway safer for pedestrians, bus riders, and drivers?
+Q3,voice_file,If you regularly walk across Dixie Highway, where do you cross?
+Q4,voice_file,Cross you usually cross at designated crosswalks, or do you use other locations?
+Q5,voice_file,Have you ever had a close call with a vehicle while walking along Dixie Highway?
+Q6,voice_file,How often do you ride the bus?
+Q7,voice_file,Where do you usually get on the bus?
+Q8,voice_file,When you ride the bus, where are you usually going?  Work, school, or some other location?
+Q9,voice_file,When you ride the bus, what part of town are you usually going to?
