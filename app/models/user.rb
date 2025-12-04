@@ -10,20 +10,10 @@
 #  updated_at :datetime
 #
 
-
-
 class User < ActiveRecord::Base
+  has_secure_password
 
-	  # users.password_hash in the database is a :string
- 
-
-    #VALID_INPUTS = /[[:ascii:]]+/
-    #validates :name, presence: true, length: { maximum: 128 },
-        #format: { with: VALID_INPUTS }, uniqueness: true
-    has_secure_password
-    validates :email, presence: true
-    validates :id, presence: true
-
-
-
+  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates :login, presence: true, uniqueness: true
 end

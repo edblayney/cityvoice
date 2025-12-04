@@ -20,8 +20,6 @@ class LocationSubscription < ActiveRecord::Base
 
   has_many :answers, through: :location
 
-  attr_accessible :last_email_sent_at, :confirmed, :confirmation_sent_at, :bulk_added, :location, :subscription
-
   before_create :create_auth_token, :set_last_email_sent_at
 
   def self.confirmed

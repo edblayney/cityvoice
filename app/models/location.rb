@@ -17,8 +17,6 @@ class Location < ActiveRecord::Base
   has_many :calls
   has_many :answers, through: :calls
 
-  attr_accessible :name, :lat, :long, :description, :most_recent_activity
-
   validates :name, presence: true
 
   def self.activity_since(time)
@@ -39,7 +37,7 @@ class Location < ActiveRecord::Base
   end
 
   def has_voice_messages?
-    answers.voice_messages.count > 0
+    answers.voice_messages.exists?
   end
 
   def voice_messages

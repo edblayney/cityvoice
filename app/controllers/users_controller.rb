@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  
+  before_action :authorize, except: [:new, :create]
+  before_action :check_user_authorization, only: [:edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
@@ -20,7 +21,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
   end
 
     # POST /users
@@ -71,8 +71,15 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    # Ensure users can only modify their own account
+    def check_user_authorization
+      unless current_user == @user
+        redirect_to root_path, alert: 'Not authorized to perform this action'
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :login)
+      params.require(:user).permit(:name, :email, :login, :password, :password_confirmation)
     end
 end

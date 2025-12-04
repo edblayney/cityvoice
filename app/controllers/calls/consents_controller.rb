@@ -1,5 +1,5 @@
 class Calls::ConsentsController < TwilioController
-  before_filter :load_call
+  before_action :load_call
 
   def create
     @consenter = Call::Consenter.new(@call, params['Digits'], params[:attempts])

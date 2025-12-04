@@ -1,5 +1,5 @@
 class Calls::LocationsController < TwilioController
-  before_filter :load_call
+  before_action :load_call
 
   def create
     @assigner = Call::LocationAssigner.new(@call, params['Digits'], params[:attempts])
