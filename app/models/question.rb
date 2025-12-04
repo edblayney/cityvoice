@@ -16,8 +16,6 @@ class Question < ActiveRecord::Base
   validates_presence_of :short_name, :feedback_type
   validates_uniqueness_of :short_name
 
-  attr_accessible :short_name, :feedback_type, :question_text
-
   def self.numerical
     where(feedback_type: 'numerical_response')
   end
@@ -31,11 +29,10 @@ class Question < ActiveRecord::Base
   end
 
   def response_percentages
-    total = answers.count * 0.01
-    response_counts.reduce({}) do |memo, (response, count)|
-      memo[response] = count / total
-      memo
-    end
+    total = answers.count
+    return {} if total.zero?
+
+    response_counts.transform_values { |count| (count.to_f / total * 100).round(2) }
   end
 
   def voice_file?

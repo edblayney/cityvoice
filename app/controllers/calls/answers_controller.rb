@@ -1,5 +1,5 @@
 class Calls::AnswersController < TwilioController
-  before_filter :load_call
+  before_action :load_call
 
   def create
     @asker = Call::QuestionAnswerer.new(@call, params[:question_id], params[:attempts])

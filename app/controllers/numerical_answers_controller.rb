@@ -1,8 +1,8 @@
 class NumericalAnswersController < ApplicationController
   def index
     total_counts = Answer.total_calls
-    agree_counts = Answer.total_responses(1)
-    disagree_counts = Answer.total_responses(2)
+    agree_counts = Answer.total_responses(Answer::RESPONSE_AGREE)
+    disagree_counts = Answer.total_responses(Answer::RESPONSE_DISAGREE)
     counts = AnswerCounts.new(total_counts, agree_counts, disagree_counts)
     @questions = Question.numerical
     @counts_hash = counts.to_hash
@@ -14,61 +14,62 @@ class NumericalAnswersController < ApplicationController
   end
 
   def export
-    data_table = Array.new
-    header_row = Array.new
-    header_row << "Call ID"
-    header_row << "Location"
-    numerical_questions = Question.numerical.order(:id)
+    data_table = []
+    header_row = ["Call ID", "Location"]
+
+    numerical_questions = Question.numerical.order(:id).to_a
     numerical_questions.each do |question|
       header_row << question.question_text
     end
-    voice_questions = Question.where(feedback_type: "voice_file")
+
+    voice_questions = Question.where(feedback_type: "voice_file").to_a
     voice_questions.each do |question|
       header_row << question.question_text
     end
+
     data_table << header_row
-    calls = Call.where.not(location_id: nil).order(:id)
+
+    # Eager load location and answers to prevent N+1 queries
+    calls = Call.where.not(location_id: nil)
+                .includes(:location, answers: :question)
+                .order(:id)
+
     calls.each do |call|
-      call_array = Array.new
-      call_array << call.id
-      call_array << call.location.name
-      answers = call.answers
+      call_array = [call.id, call.location.name]
+
+      # Build hash of answers by question_id for O(1) lookup
+      answers_by_question = call.answers.index_by(&:question_id)
+
       numerical_questions.each do |question|
-        answer_results = answers.select { |a| a.question_id == question.id }
-        if answer_results.count == 0
-          call_array << ""
-        elsif answer_results.count == 1
-          numerical_response = answer_results[0].numerical_response
-          if numerical_response == 1
-            call_array << "Agree"
-          elsif numerical_response == 2
-            call_array << "Disagree"
-          else
-            call_array << ""
-          end
+        answer = answers_by_question[question.id]
+        if answer
+          call_array << case answer.numerical_response
+                        when Answer::RESPONSE_AGREE then "Agree"
+                        when Answer::RESPONSE_DISAGREE then "Disagree"
+                        else ""
+                        end
         else
-          raise "Uh oh, more than one result"
+          call_array << ""
         end
       end
+
       voice_questions.each do |question|
-        answer_results = answers.select { |a| a.question_id == question.id }
-        if answer_results.count == 1
-          call_array << answer_results[0].voice_file_url
-        else
-          call_array << ""
-        end
+        answer = answers_by_question[question.id]
+        call_array << (answer ? answer.voice_file_url : "")
       end
+
       data_table << call_array
     end
+
     respond_to do |format|
-      format.csv {
+      format.csv do
         csv_string = CSV.generate do |csv|
           data_table.each do |row|
             csv << row
           end
         end
         send_data csv_string
-      }
+      end
     end
   end
 end

@@ -10,6 +10,4 @@
 
 class Caller < ActiveRecord::Base
   has_many :calls
-
-  attr_accessible :phone_number, :consented_to_callback
 end

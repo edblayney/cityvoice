@@ -1,5 +1,5 @@
 class Calls::MessagesController < TwilioController
-  before_filter :load_call
+  before_action :load_call
 
   def create
     @chooser = Call::PlaybackChooser.new(@call, params['Digits'], params[:attempts])

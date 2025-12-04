@@ -1,5 +1,5 @@
 class Calls::PlaybacksController < TwilioController
-  before_filter :load_call
+  before_action :load_call
 
   def create
     @player = Call::AnswerPlayer.new(@call, params['Digits'], params[:message_id], params[:attempts])

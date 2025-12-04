@@ -22,7 +22,7 @@ class Call::QuestionAnswerer < Struct.new(:call, :question_index, :attempt_value
   end
 
   def valid?
-    question.answers.where(call: call).count > 0
+    question.answers.exists?(call: call)
   end
 
   def repeat?
@@ -56,7 +56,7 @@ class Call::QuestionAnswerer < Struct.new(:call, :question_index, :attempt_value
   end
 
   def questions
-    Question.all.order(updated_at: :asc)
+    Question.order(updated_at: :asc)
   end
 
   def scope_iterator
